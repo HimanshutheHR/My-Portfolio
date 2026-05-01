@@ -144,8 +144,8 @@ export default function Home() {
 
         <ul className="space-y-3 text-gray-700">
           <li>→ Why systems fail in production</li>
-          <li>→ Kafka backpressure and consumer lag</li>
           <li>→ Designing resilient microservices</li>
+          <li>→ Why some systems degrade gracefully while others collapse</li>
           <li>→ Trade-offs in distributed systems</li>
         </ul>
       </section>
