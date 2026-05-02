@@ -161,7 +161,7 @@ export default function Home() {
     {[
       {
         year: "2016 – 2020",
-        title: "Engineering Degree",
+        title: "B.E. in Electronics and Communication Engineering",
         place: "Siddaganga Institute of Technology",
         desc: "Started with electronics, but discovered interest in software and problem solving.",
       },
