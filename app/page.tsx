@@ -1,21 +1,46 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [dark, setDark] = useState(true);
+
+useEffect(() => {
+  const saved = localStorage.getItem("theme");
+  if (saved) setDark(saved === "dark");
+}, []);
+
+useEffect(() => {
+  localStorage.setItem("theme", dark ? "dark" : "light");
+}, [dark]);
   const [active, setActive] = useState<number | null>(null);
 
   return (
-    <main className="bg-gradient-to-b from-white via-gray-50 to-gray-100 text-gray-900 px-6 py-12">
+    <main
+      className={`min-h-screen px-6 py-12 transition ${
+        dark
+          ? "bg-gray-900 text-gray-100"
+          : "bg-gradient-to-b from-white via-gray-50 to-gray-100 text-gray-900"
+      }`}
+    >
+      {/* DARK MODE TOGGLE */}
+      <div className="max-w-4xl mx-auto flex justify-end">
+        <button
+          onClick={() => setDark(!dark)}
+          className="text-sm px-4 py-1 border rounded-lg hover:opacity-70"
+        >
+          {dark ? "☀️ Light" : "🌙 Dark"}
+        </button>
+      </div>
 
       {/* INTRO */}
-      <section className="max-w-4xl mx-auto text-center relative">
+      <section className="max-w-4xl mx-auto text-center mt-6">
 
-        {/* PROFILE IMAGE */}
+        {/* PROFILE */}
         <div className="flex justify-center mb-6">
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 blur-2xl opacity-30 rounded-full"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 blur-2xl opacity-30 rounded-full"></div>
             <Image
               src="/profile.png"
               alt="Himanshu"
@@ -26,38 +51,41 @@ export default function Home() {
           </div>
         </div>
 
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
           Hi, I’m Himanshu
         </h1>
 
-        <p className="mt-4 text-lg text-gray-600">
+        <p className={`${dark ? "text-gray-300" : "text-gray-600"} mt-4`}>
           I build backend systems that don’t break when things get real.
         </p>
 
-        {/* LINKS */}
-        <div className="mt-6 flex justify-center gap-6 text-sm">
+        {/* SOCIAL LINKS */}
+        <div className="mt-6 flex justify-center gap-6">
 
+          {/* EMAIL */}
           <a
             href="mailto:himanshu.hr.ranjan@gmail.com"
-            className="hover:text-blue-600 transition"
+            className="hover:scale-110 transition"
           >
-            📧 Email
+            <Image src="/gmail.png" alt="email" width={28} height={28} />
           </a>
 
+          {/* LINKEDIN */}
           <a
             href="https://linkedin.com/in/himanshuthehr"
             target="_blank"
-            className="hover:text-blue-600 transition"
+            className="hover:scale-110 transition"
           >
-            🔗 LinkedIn
+            <Image src="/linkedin.png" alt="linkedin" width={28} height={28} />
           </a>
 
+          {/* LEETCODE */}
           <a
             href="https://leetcode.com/u/himanshuthehr"
             target="_blank"
-            className="hover:text-purple-600 transition"
+            className="hover:scale-110 transition"
           >
-            💻 LeetCode
+            <Image src="/leetcode.png" alt="leetcode" width={28} height={28} />
           </a>
         </div>
       </section>
@@ -70,19 +98,19 @@ export default function Home() {
           {[
             {
               title: "Started with curiosity",
-              desc: "I began with Java and quickly got pulled into understanding how real systems work beyond just writing code.",
+              desc: "I began with Java and got curious about how real systems behave beyond code.",
             },
             {
               title: "Learned by breaking things",
-              desc: "Worked on enterprise systems, debugging failures, fixing edge cases, and understanding why systems fail in production.",
+              desc: "Debugging failures taught me more than writing perfect code ever could.",
             },
             {
               title: "Moved to distributed systems",
-              desc: "Started working with Kafka, APIs, and microservices — where scale, latency, and failures actually matter.",
+              desc: "Worked with APIs, Kafka, and microservices where scale and failures matter.",
             },
             {
               title: "Now",
-              desc: "I focus on building systems that are reliable, scalable, and designed for real-world usage.",
+              desc: "Focused on building systems that are reliable under real-world conditions.",
             },
           ].map((item, index) => (
             <div
@@ -91,7 +119,9 @@ export default function Home() {
               onMouseLeave={() => setActive(null)}
               className={`p-5 border rounded-xl transition cursor-pointer ${
                 active === index
-                  ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
+                  ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
+                  : dark
+                  ? "bg-gray-800 border-gray-700"
                   : "bg-white"
               }`}
             >
@@ -104,49 +134,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* WHAT I’M GOOD AT */}
-      <section className="max-w-3xl mx-auto mt-20">
-        <h2 className="text-2xl font-semibold mb-6">What I’m good at</h2>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          {[
-            {
-              title: "Building scalable APIs",
-              desc: "Designing APIs that handle high traffic and remain stable under pressure.",
-            },
-            {
-              title: "Thinking in systems",
-              desc: "Understanding trade-offs, bottlenecks, and how systems behave at scale.",
-            },
-            {
-              title: "Handling failures",
-              desc: "Retries, circuit breakers, idempotency — building for when things go wrong.",
-            },
-            {
-              title: "Event-driven architecture",
-              desc: "Designing Kafka-based systems with proper partitioning and flow.",
-            },
-          ].map((item, i) => (
-            <div
-              key={i}
-              className="p-5 border rounded-xl bg-white hover:shadow-xl hover:-translate-y-1 transition"
-            >
-              <h3 className="font-semibold">{item.title}</h3>
-              <p className="text-sm text-gray-600 mt-2">{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* WHAT I THINK ABOUT */}
       <section className="max-w-3xl mx-auto mt-20">
         <h2 className="text-2xl font-semibold mb-6">What I think about</h2>
 
-        <ul className="space-y-3 text-gray-700">
-          <li>→ Why systems fail in production</li>
-          <li>→ Designing resilient microservices</li>
+        <ul className={`${dark ? "text-gray-300" : "text-gray-700"} space-y-3`}>
+          <li>→ Why systems break at scale (and how to prevent it)</li>
+          <li>→ Designing APIs that don’t collapse under real traffic</li>
           <li>→ Why some systems degrade gracefully while others collapse</li>
-          <li>→ Trade-offs in distributed systems</li>
+          <li>→ Trade-offs: speed vs consistency vs reliability</li>
         </ul>
       </section>
 
@@ -154,24 +150,18 @@ export default function Home() {
       <section className="max-w-3xl mx-auto mt-20 text-center">
         <h2 className="text-2xl font-semibold mb-4">Let’s connect</h2>
 
-        <p className="text-gray-600">
-          If you’re building something interesting or want to discuss systems,
-          feel free to reach out.
-        </p>
-
         <a
           href="mailto:himanshu.hr.ranjan@gmail.com"
-          className="mt-4 inline-block font-medium text-blue-600 hover:underline"
+          className="text-blue-500 hover:underline"
         >
           himanshu.hr.ranjan@gmail.com
         </a>
       </section>
 
       {/* FOOTER */}
-      <section className="mt-16 text-center text-gray-400 text-sm">
-        Built with curiosity and a lot of debugging 🚀
+      <section className="mt-16 text-center text-gray-500 text-sm">
+        Built with curiosity 🚀
       </section>
-
     </main>
   );
 }
