@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Sidebar from "./Sidebar";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,20 +15,29 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Himanshu Ranjan | Backend Engineer",
-  description: "Portfolio of Himanshu Ranjan - Backend Engineer, Java, System Design",
+  description:
+    "Portfolio of Himanshu Ranjan - Backend Engineer, Java, System Design",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex bg-gray-900 text-gray-100">
+        
+        {/* Sidebar (client component) */}
+        <Sidebar />
+
+        {/* Main */}
+        <div className="flex-1">{children}</div>
+
+      </body>
     </html>
   );
 }

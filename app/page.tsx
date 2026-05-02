@@ -147,29 +147,54 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TIMELINE */}
-      <section ref={timelineRef} className="max-w-3xl mx-auto mt-20">
-        <h2 className="text-2xl font-semibold mb-8">Where it all came from</h2>
+      {/* TIMELINE (NEW STYLE) */}
+<section ref={timelineRef} className="max-w-4xl mx-auto mt-24">
+  <h2 className="text-2xl font-semibold mb-10 text-center">My Path</h2>
 
-        <div className="relative border-l-2 border-gray-700 pl-6">
-          {[
-            "Engineering → discovered software",
-            "Accenture → real-world systems",
-            "Synchrony → scaling distributed systems",
-          ].map((item, i) => (
-            <div
-              key={i}
-              className={`mb-10 transition-all duration-700 ${
-                timelineVisible ? "opacity-100" : "opacity-0 -translate-x-5"
-              }`}
-              style={{ transitionDelay: `${i * 150}ms` }}
-            >
-              <div className="absolute -left-[9px] top-1 w-4 h-4 bg-blue-500 rounded-full" />
-              <p>{item}</p>
-            </div>
-          ))}
+  <div className="relative">
+
+    {/* vertical line */}
+    <div className="absolute left-1/2 transform -translate-x-1/2 w-[2px] bg-gray-700 h-full"></div>
+
+    {[
+      {
+        title: "Engineering Degree",
+        place: "Siddaganga Institute of Technology",
+        desc: "Started with electronics, but got deeply interested in software and problem solving.",
+      },
+      {
+        title: "Accenture",
+        place: "First real-world systems",
+        desc: "Worked on enterprise applications and learned how large systems behave.",
+      },
+      {
+        title: "Synchrony Financial",
+        place: "Scaling systems",
+        desc: "Building high-scale APIs and distributed systems handling real traffic.",
+      },
+    ].map((item, i) => (
+      <div
+        key={i}
+        className={`relative flex items-center mb-16 ${
+          i % 2 === 0 ? "justify-start" : "justify-end"
+        }`}
+      >
+        <div
+          className={`w-[45%] p-5 rounded-xl border bg-gray-800 transition-all duration-700 ${
+            timelineVisible ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <h3 className="font-semibold">{item.title}</h3>
+          <p className="text-sm text-gray-400">{item.place}</p>
+          <p className="mt-2 text-sm text-gray-300">{item.desc}</p>
         </div>
-      </section>
+
+        {/* dot */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-500 rounded-full"></div>
+      </div>
+    ))}
+  </div>
+</section>
 
       {/* EXPERIENCE */}
       <section className="max-w-3xl mx-auto mt-20">
@@ -200,6 +225,7 @@ export default function Home() {
           { name: "System Design", level: "85%" },
           { name: "Distributed Systems", level: "85%" },
           { name: "Kafka & Event Systems", level: "80%" },
+          { name: "DSA & Problem Solving", level: "80%" },
         ].map((skill, i) => (
           <div key={i} className="mb-4">
             <p className="text-sm mb-1">{skill.name}</p>
