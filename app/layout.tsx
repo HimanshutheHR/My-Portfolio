@@ -28,7 +28,7 @@ export const metadata = {
     siteName: "Himanshu Ranjan",
     images: [
       {
-        url: "/og-image.svg", // IMPORTANT
+        url: "/og-image.png", // IMPORTANT
         width: 1200,
         height: 630,
       },
@@ -42,7 +42,7 @@ export const metadata = {
     description: "Backend Engineer | System Design",
     images: [
   {
-    url: "/og-image.svg",
+    url: "/og-image.png",
     width: 1200,
     height: 630,
   },
