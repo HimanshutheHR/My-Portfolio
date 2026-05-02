@@ -147,9 +147,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TIMELINE (NEW STYLE) */}
-<section ref={timelineRef} className="max-w-4xl mx-auto mt-24">
-  <h2 className="text-2xl font-semibold mb-10 text-center">My Path</h2>
+      {/* TIMELINE (YEARS + JOURNEY) */}
+<section className="max-w-4xl mx-auto mt-24">
+  <h2 className="text-2xl font-semibold mb-12 text-center">
+    My Journey
+  </h2>
 
   <div className="relative">
 
@@ -158,18 +160,21 @@ export default function Home() {
 
     {[
       {
+        year: "2016 – 2020",
         title: "Engineering Degree",
         place: "Siddaganga Institute of Technology",
-        desc: "Started with electronics, but got deeply interested in software and problem solving.",
+        desc: "Started with electronics, but discovered interest in software and problem solving.",
       },
       {
+        year: "2021 – 2022",
         title: "Accenture",
-        place: "First real-world systems",
-        desc: "Worked on enterprise applications and learned how large systems behave.",
+        place: "Application Development Analyst",
+        desc: "Worked on enterprise systems and learned real-world software complexity.",
       },
       {
+        year: "2023 – Present",
         title: "Synchrony Financial",
-        place: "Scaling systems",
+        place: "Software Development Engineer II",
         desc: "Building high-scale APIs and distributed systems handling real traffic.",
       },
     ].map((item, i) => (
@@ -179,14 +184,16 @@ export default function Home() {
           i % 2 === 0 ? "justify-start" : "justify-end"
         }`}
       >
-        <div
-          className={`w-[45%] p-5 rounded-xl border bg-gray-800 transition-all duration-700 ${
-            timelineVisible ? "opacity-100" : "opacity-0"
-          }`}
-        >
+        <div className="w-[45%] p-6 rounded-xl border bg-gray-800 hover:shadow-lg transition">
+
+          <p className="text-sm text-blue-400 mb-1">{item.year}</p>
+
           <h3 className="font-semibold">{item.title}</h3>
           <p className="text-sm text-gray-400">{item.place}</p>
-          <p className="mt-2 text-sm text-gray-300">{item.desc}</p>
+
+          <p className="mt-2 text-sm text-gray-300">
+            {item.desc}
+          </p>
         </div>
 
         {/* dot */}

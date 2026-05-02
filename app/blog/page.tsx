@@ -1,6 +1,6 @@
 export default function Blog() {
   return (
-    <main className="px-10 py-12">
+    <main className="px-10 py-12 pt-20 pl-20">
 
       <h1 className="text-4xl font-bold mb-6">Writing</h1>
 
