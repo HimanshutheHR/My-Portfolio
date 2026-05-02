@@ -2,6 +2,10 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faLeetcode } from "@fortawesome/free-brands-svg-icons";
 
 /* ---------- HOOK: detect scroll visibility ---------- */
 function useInView() {
@@ -86,21 +90,35 @@ export default function Home() {
         </p>
 
         {/* SOCIAL ICONS */}
-        <div className="mt-6 flex justify-center gap-6">
+        <div className="mt-6 flex justify-center gap-6 text-xl">
 
-          <a href="mailto:himanshu.hr.ranjan@gmail.com">
-            <Image src="/gmail.png" alt="email" width={28} height={28} />
-          </a>
+  {/* EMAIL */}
+  <a
+    href="mailto:himanshu.hr.ranjan@gmail.com"
+    className="hover:text-blue-400 transition"
+  >
+    <FontAwesomeIcon icon={faEnvelope} />
+  </a>
 
-          <a href="https://linkedin.com/in/himanshuthehr" target="_blank">
-            <Image src="/linkedin.png" alt="linkedin" width={28} height={28} />
-          </a>
+  {/* LINKEDIN */}
+  <a
+    href="https://linkedin.com/in/himanshuthehr"
+    target="_blank"
+    className="hover:text-blue-500 transition"
+  >
+    <FontAwesomeIcon icon={faLinkedin} />
+  </a>
 
-          <a href="https://leetcode.com/u/himanshuthehr" target="_blank">
-            <Image src="/leetcode.png" alt="leetcode" width={28} height={28} />
-          </a>
+  {/* LEETCODE (fallback icon) */}
+  <a
+    href="https://leetcode.com/u/himanshuthehr"
+    target="_blank"
+    className="hover:text-yellow-400 transition"
+  >
+    <FontAwesomeIcon icon={faLeetcode} />
+  </a>
 
-        </div>
+</div>
       </section>
 
       {/* JOURNEY */}
