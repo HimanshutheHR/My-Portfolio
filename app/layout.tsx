@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Sidebar from "./Sidebar";
 import "./globals.css";
 
+
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -13,10 +15,39 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Himanshu Ranjan | Backend Engineer",
   description:
-    "Portfolio of Himanshu Ranjan - Backend Engineer, Java, System Design",
+    "Backend Engineer specializing in Java, distributed systems, and scalable APIs",
+
+  openGraph: {
+    title: "Himanshu Ranjan",
+    description:
+      "Backend Engineer | Java | Distributed Systems",
+    url: "https://himanshuranjan.work",
+    siteName: "Himanshu Ranjan",
+    images: [
+      {
+        url: "/og-image.svg", // IMPORTANT
+        width: 1200,
+        height: 630,
+      },
+    ],
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Himanshu Ranjan",
+    description: "Backend Engineer | System Design",
+    images: [
+  {
+    url: "/og-image.svg",
+    width: 1200,
+    height: 630,
+  },
+],
+  },
 };
 
 export default function RootLayout({
