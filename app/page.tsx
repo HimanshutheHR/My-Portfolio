@@ -75,17 +75,18 @@ export default function Home() {
       {/* INTRO */}
       <section className="max-w-4xl mx-auto text-center mt-6">
         <div className="flex justify-center mb-6">
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 blur-2xl opacity-30 rounded-full"></div>
-            <Image
-              src="/profile.png"
-              alt="Himanshu"
-              width={120}
-              height={120}
-              className="rounded-full border-4 border-white shadow-xl relative"
-            />
-          </div>
-        </div>
+  <div className="relative group">
+    <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 blur-2xl opacity-30 rounded-full group-hover:opacity-50 transition"></div>
+
+    <Image
+      src="/profile.png"
+      alt="Himanshu"
+      width={120}
+      height={120}
+      className="rounded-full border-4 border-white shadow-xl relative transition group-hover:scale-105"
+    />
+  </div>
+</div>
 
         <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
           Hi, I’m Himanshu
@@ -135,13 +136,13 @@ export default function Home() {
               key={index}
               onMouseEnter={() => setActive(index)}
               onMouseLeave={() => setActive(null)}
-              className={`p-5 border rounded-xl transition ${
-                active === index
-                  ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
-                  : dark
-                  ? "bg-gray-800 border-gray-700"
-                  : "bg-white border-gray-300"
-              }`}
+              className={`premium-card glow-hover p-5 border rounded-xl ${
+  active === index
+    ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
+    : dark
+    ? "bg-gray-800 border-gray-700"
+    : "bg-white border-gray-300"
+}`}
             >
               <h3 className="font-semibold">{item.title}</h3>
               {active === index && (
@@ -192,11 +193,11 @@ export default function Home() {
               }`}
             >
               <div
-                className={`w-[45%] p-6 rounded-xl border ${
-                  dark
-                    ? "bg-gray-800 border-gray-700 text-gray-100"
-                    : "bg-white border-gray-300 text-gray-900"
-                }`}
+                className={`premium-card glow-hover w-[45%] p-6 rounded-xl border ${
+  dark
+    ? "bg-gray-800 border-gray-700 text-gray-100"
+    : "bg-white border-gray-300 text-gray-900"
+}`}
               >
                 <p className="text-sm text-blue-400">{item.year}</p>
                 <h3 className="font-semibold">{item.title}</h3>
@@ -230,11 +231,11 @@ export default function Home() {
           ].map((item, i) => (
             <div
               key={i}
-              className={`p-6 border rounded-xl ${
-                dark
-                  ? "bg-gray-800 border-gray-700 text-gray-100"
-                  : "bg-white border-gray-300 text-gray-900"
-              }`}
+              className={`premium-card glow-hover p-6 border rounded-xl ${
+  dark
+    ? "bg-gray-800 border-gray-700 text-gray-100"
+    : "bg-white border-gray-300 text-gray-900"
+}`}
             >
               {item}
             </div>
@@ -262,9 +263,9 @@ export default function Home() {
               }`}
             >
               <div
-                className="h-2 rounded bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-1000"
-                style={{ width: skillsVisible ? skill.level : "0%" }}
-              />
+  className="h-2 rounded bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-1000 ease-out"
+  style={{ width: skillsVisible ? skill.level : "0%" }}
+/>
             </div>
           </div>
         ))}
@@ -295,11 +296,11 @@ export default function Home() {
           ].map((item, i) => (
             <div
               key={i}
-              className={`p-4 border rounded-lg ${
-                dark
-                  ? "bg-gray-800 border-gray-700 text-gray-100"
-                  : "bg-white border-gray-300 text-gray-900"
-              }`}
+              className={`premium-card glow-hover p-4 border rounded-lg ${
+  dark
+    ? "bg-gray-800 border-gray-700 text-gray-100"
+    : "bg-white border-gray-300 text-gray-900"
+}`}
             >
               {item}
             </div>
