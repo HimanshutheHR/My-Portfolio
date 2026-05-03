@@ -3,11 +3,11 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faLeetcode } from "@fortawesome/free-brands-svg-icons";
 
-/* ---------- HOOK: detect scroll visibility ---------- */
+/* ---------- HOOK ---------- */
 function useInView() {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
@@ -21,7 +21,6 @@ function useInView() {
     );
 
     if (ref.current) observer.observe(ref.current);
-
     return () => {
       if (ref.current) observer.unobserve(ref.current);
     };
@@ -44,7 +43,15 @@ export default function Home() {
     localStorage.setItem("theme", dark ? "dark" : "light");
   }, [dark]);
 
-  const { ref: timelineRef, visible: timelineVisible } = useInView();
+  /* IMPORTANT FIX */
+  useEffect(() => {
+    if (dark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [dark]);
+
   const { ref: skillsRef, visible: skillsVisible } = useInView();
 
   return (
@@ -55,7 +62,7 @@ export default function Home() {
           : "bg-gradient-to-b from-white via-gray-50 to-gray-100 text-gray-900"
       }`}
     >
-      {/* DARK MODE TOGGLE */}
+      {/* TOGGLE */}
       <div className="max-w-4xl mx-auto flex justify-end">
         <button
           onClick={() => setDark(!dark)}
@@ -67,7 +74,6 @@ export default function Home() {
 
       {/* INTRO */}
       <section className="max-w-4xl mx-auto text-center mt-6">
-
         <div className="flex justify-center mb-6">
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 blur-2xl opacity-30 rounded-full"></div>
@@ -85,40 +91,21 @@ export default function Home() {
           Hi, I’m Himanshu
         </h1>
 
-        <p className="mt-4 text-lg text-gray-400">
+        <p className={`mt-4 text-lg ${dark ? "text-gray-400" : "text-gray-700"}`}>
           I build backend systems that don’t break when things get real.
         </p>
 
-        {/* SOCIAL ICONS */}
         <div className="mt-6 flex justify-center gap-6 text-xl">
-
-  {/* EMAIL */}
-  <a
-    href="mailto:himanshu.hr.ranjan@gmail.com"
-    className="hover:text-blue-400 transition"
-  >
-    <FontAwesomeIcon icon={faEnvelope} />
-  </a>
-
-  {/* LINKEDIN */}
-  <a
-    href="https://linkedin.com/in/himanshuthehr"
-    target="_blank"
-    className="hover:text-blue-500 transition"
-  >
-    <FontAwesomeIcon icon={faLinkedin} />
-  </a>
-
-  {/* LEETCODE (fallback icon) */}
-  <a
-    href="https://leetcode.com/u/himanshuthehr"
-    target="_blank"
-    className="hover:text-yellow-400 transition"
-  >
-    <FontAwesomeIcon icon={faLeetcode} />
-  </a>
-
-</div>
+          <a href="mailto:himanshu.hr.ranjan@gmail.com">
+            <FontAwesomeIcon icon={faEnvelope} />
+          </a>
+          <a href="https://linkedin.com/in/himanshuthehr" target="_blank">
+            <FontAwesomeIcon icon={faLinkedin} />
+          </a>
+          <a href="https://leetcode.com/u/himanshuthehr" target="_blank">
+            <FontAwesomeIcon icon={faLeetcode} />
+          </a>
+        </div>
       </section>
 
       {/* JOURNEY */}
@@ -153,7 +140,7 @@ export default function Home() {
                   ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
                   : dark
                   ? "bg-gray-800 border-gray-700"
-                  : "bg-white"
+                  : "bg-white border-gray-300"
               }`}
             >
               <h3 className="font-semibold">{item.title}</h3>
@@ -165,61 +152,71 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TIMELINE (YEARS + JOURNEY) */}
-<section className="max-w-4xl mx-auto mt-24">
-  <h2 className="text-2xl font-semibold mb-12 text-center">
-    My Journey
-  </h2>
+      {/* TIMELINE */}
+      <section className="max-w-4xl mx-auto mt-24">
+        <h2 className="text-2xl font-semibold mb-12 text-center">
+          My Journey
+        </h2>
 
-  <div className="relative">
+        <div className="relative">
+          <div
+            className={`absolute left-1/2 transform -translate-x-1/2 w-[2px] h-full ${
+              dark ? "bg-gray-700" : "bg-gray-300"
+            }`}
+          ></div>
 
-    {/* vertical line */}
-    <div className="absolute left-1/2 transform -translate-x-1/2 w-[2px] bg-gray-700 h-full"></div>
+          {[
+            {
+              year: "2016 – 2020",
+              title: "B.E. in Electronics and Communication Engineering",
+              place: "Siddaganga Institute of Technology",
+              desc: "Started with electronics, moved into software.",
+            },
+            {
+              year: "2021 – 2022",
+              title: "Accenture",
+              place: "Application Development Analyst",
+              desc: "Enterprise systems and real-world complexity.",
+            },
+            {
+              year: "2023 – Present",
+              title: "Synchrony Financial",
+              place: "Software Development Engineer II",
+              desc: "Scaling distributed systems and APIs.",
+            },
+          ].map((item, i) => (
+            <div
+              key={i}
+              className={`flex items-center mb-16 ${
+                i % 2 === 0 ? "justify-start" : "justify-end"
+              }`}
+            >
+              <div
+                className={`w-[45%] p-6 rounded-xl border ${
+                  dark
+                    ? "bg-gray-800 border-gray-700 text-gray-100"
+                    : "bg-white border-gray-300 text-gray-900"
+                }`}
+              >
+                <p className="text-sm text-blue-400">{item.year}</p>
+                <h3 className="font-semibold">{item.title}</h3>
+                <p className={dark ? "text-gray-400" : "text-gray-700"}>
+                  {item.place}
+                </p>
+                <p
+                  className={`mt-2 text-sm ${
+                    dark ? "text-gray-300" : "text-gray-800"
+                  }`}
+                >
+                  {item.desc}
+                </p>
+              </div>
 
-    {[
-      {
-        year: "2016 – 2020",
-        title: "B.E. in Electronics and Communication Engineering",
-        place: "Siddaganga Institute of Technology",
-        desc: "Started with electronics, but discovered interest in software and problem solving.",
-      },
-      {
-        year: "2021 – 2022",
-        title: "Accenture",
-        place: "Application Development Analyst",
-        desc: "Worked on enterprise systems and learned real-world software complexity.",
-      },
-      {
-        year: "2023 – Present",
-        title: "Synchrony Financial",
-        place: "Software Development Engineer II",
-        desc: "Building high-scale APIs and distributed systems handling real traffic.",
-      },
-    ].map((item, i) => (
-      <div
-        key={i}
-        className={`relative flex items-center mb-16 ${
-          i % 2 === 0 ? "justify-start" : "justify-end"
-        }`}
-      >
-        <div className="w-[45%] p-6 rounded-xl border bg-gray-800 hover:shadow-lg transition">
-
-          <p className="text-sm text-blue-400 mb-1">{item.year}</p>
-
-          <h3 className="font-semibold">{item.title}</h3>
-          <p className="text-sm text-gray-400">{item.place}</p>
-
-          <p className="mt-2 text-sm text-gray-300">
-            {item.desc}
-          </p>
+              <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-500 rounded-full"></div>
+            </div>
+          ))}
         </div>
-
-        {/* dot */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-500 rounded-full"></div>
-      </div>
-    ))}
-  </div>
-</section>
+      </section>
 
       {/* EXPERIENCE */}
       <section className="max-w-3xl mx-auto mt-20">
@@ -233,7 +230,11 @@ export default function Home() {
           ].map((item, i) => (
             <div
               key={i}
-              className="p-6 border rounded-xl bg-gray-800 hover:shadow-xl transition"
+              className={`p-6 border rounded-xl ${
+                dark
+                  ? "bg-gray-800 border-gray-700 text-gray-100"
+                  : "bg-white border-gray-300 text-gray-900"
+              }`}
             >
               {item}
             </div>
@@ -254,7 +255,12 @@ export default function Home() {
         ].map((skill, i) => (
           <div key={i} className="mb-4">
             <p className="text-sm mb-1">{skill.name}</p>
-            <div className="w-full h-2 bg-gray-700 rounded">
+
+            <div
+              className={`w-full h-2 rounded ${
+                dark ? "bg-gray-700" : "bg-gray-300"
+              }`}
+            >
               <div
                 className="h-2 rounded bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-1000"
                 style={{ width: skillsVisible ? skill.level : "0%" }}
@@ -268,7 +274,7 @@ export default function Home() {
       <section className="max-w-3xl mx-auto mt-20">
         <h2 className="text-2xl font-semibold mb-6">What I think about</h2>
 
-        <ul className="space-y-3 text-gray-400">
+        <ul className={dark ? "space-y-3 text-gray-400" : "space-y-3 text-gray-700"}>
           <li>→ Why systems break at scale</li>
           <li>→ Designing APIs that survive real traffic</li>
           <li>→ Why some systems degrade gracefully while others collapse</li>
@@ -289,7 +295,11 @@ export default function Home() {
           ].map((item, i) => (
             <div
               key={i}
-              className="p-4 border rounded-lg bg-gray-800 hover:shadow-lg transition"
+              className={`p-4 border rounded-lg ${
+                dark
+                  ? "bg-gray-800 border-gray-700 text-gray-100"
+                  : "bg-white border-gray-300 text-gray-900"
+              }`}
             >
               {item}
             </div>
@@ -310,7 +320,11 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <section className="mt-16 text-center text-gray-500 text-sm">
+      <section
+        className={`mt-16 text-center text-sm ${
+          dark ? "text-gray-500" : "text-gray-600"
+        }`}
+      >
         Built with curiosity 🚀
       </section>
     </main>
